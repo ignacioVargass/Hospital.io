@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospital St. Tomas</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Encabezado y barra de navegación -->
+    <header>
+        <div class="logo-container">
+            <div class="logo" onclick="goHome()">
+                <img src="hospital-logo.png" alt="Logo Hospital St. Tomas">
+                <span class="hospital-name">Hospital St. Tomas</span>
+            </div>
+        </div>
+         <!-- Menú superior con submenús -->
+        <nav class="primary-nav">
+            <ul class="primary-menu">
+                    <li>
+                        <a href="#" onclick="toggleAboutUsMenu()">Sobre Nosotros</a>
+                        <ul id="aboutUsSubMenu" style="display:none;">
+                            <li><a href="#" onclick="showMission()">Misión</a></li>
+                            <li><a href="#" onclick="showVision()">Visión</a></li>
+                            <li><a href="#" onclick="showValues()">Valores</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#" onclick="toggleServicesMenu()">Servicios</a>
+                        <ul id="servicesSubMenu" style="display:none;">
+                            <li><a href="#" onclick="showConsultation()">Consulta General</a></li>
+                            <li><a href="#" onclick="showRadiology()">Radiología</a></li>
+                            <li><a href="#" onclick="toggleAppointmentForm()">Agendar Cita</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="toggleshowSearch()">Búsqueda</a>
+                        <ul id="searchSubMenu" style="display:none;">
+                            <li><a href="#" onclick="searchService()">Buscar Servicio</a></li>
+                            <li><a href="#" onclick="searchDoctor()">Buscar Médico</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#" onclick="showContact()">Contacto</a></li>
+                </ul>
+            </nav>
+    </header>
+
+    <!-- Carrusel de imágenes (Slides) -->
+    <div id="sliderContainer">
+        <div class="slide fade">
+            <img src="Imagen1.jpg" alt="Imagen 1">
+        </div>
+        <div class="slide fade">
+            <img src="Imagen2.jpg" alt="Imagen 2">
+        </div>
+        <div class="slide fade">
+            <img src="Imagen3.jpg" alt="Imagen 3">
+        </div>
+    </div>      
+
+    <!-- Sección Sobre Nosotros -->
+    <div id="aboutUsSection" class="info-container" style="display: none;">
+        <div class="info" id="missionSection" style="display: none;">
+            <h2>Misión</h2>
+            <p>Brindar atención médica de calidad, con calidez y respeto, utilizando tecnología avanzada y un enfoque humano.</p>
+        </div>
+        <div class="info" id="visionSection" style="display: none;">
+            <h2>Visión</h2>
+            <p>Ser reconocidos como el hospital líder en la región por nuestra excelencia médica y compromiso con el bienestar de la comunidad.</p>
+        </div>
+        <div class="info" id="valuesSection" style="display: none;">
+            <h2>Valores</h2>
+            <ul>
+                <li>Compromiso</li>
+                <li>Calidad</li>
+                <li>Respeto</li>
+                <li>Ética</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Sección Servicios -->
+    <div id="servicesSection" class="info-container" style="display: none;">
+        <div class="info">
+            <h2>Servicios</h2>
+            <ul>
+                <li>Consulta General - $50.00</li>
+                <li>Radiografía - $80.00</li>
+                <li>Análisis de Sangre - $30.00</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Formulario de Agendar Cita -->
+    <div id="appointmentForm" style="display: none; margin-top: 20px;">
+        <h2>Agendar una Cita</h2>
+        <form action="agendar_cita.php" method="POST">
+            <label for="nombre_paciente">Nombre del Paciente:</label>
+            <input type="text" name="nombre_paciente" id="nombre_paciente" required>
+    
+            <label for="apellido_paciente">Apellido del Paciente:</label>
+            <input type="text" name="apellido_paciente" id="apellido_paciente" required>
+    
+            <label for="especialidad">Especialidad:</label>
+            <select name="especialidad" id="especialidad" required>
+                <option value="General">Consulta General</option>
+                <option value="Radiología">Radiología</option>
+                <option value="Cardiología">Cardiología</option>
+                <option value="Neurología">Neurología</option>
+                <option value="Pediatría">Pediatría</option>
+                <option value="Oftalmología">Oftalmología</option>
+                <option value="Traumatología">Traumatología</option>
+
+            </select>
+            
+            <label for="id_medico">Médico:</label>
+            <select name="id_medico" id="id_medico" required>
+                <option value="">Seleccione un médico</option>
+            </select>
+            
+            <label for="nombre_especialista">Nombre del Especialista:</label>
+            <input type="text" name="nombre_especialista" id="nombre_especialista" readonly required>
+    
+            <label for="fecha_cita">Fecha de la Cita:</label>
+            <input type="date" name="fecha_cita" id="fecha_cita" required>
+    
+            <label for="motivo_consulta">Motivo de Consulta:</label>
+            <input type="text" name="motivo_consulta" id="motivo_consulta" required>
+
+            <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+            <input type="date" name="fecha_nacimiento" id="fecha_nacimiento" required>
+
+    
+            <label for="id_servicio">Servicio:</label>
+            <select name="id_servicio" id="id_servicio" required>
+                <option value="">Seleccione un servicio</option>
+                <option value="1">Consulta General</option>
+                <option value="2">Radiografía</option>
+                <option value="3">Análisis de Sangre</option>
+            </select>
+    
+            <button type="submit">Agendar Cita</button>
+        </form>
+    </div>
+    
+    <script>
+        // Actualizar lista de médicos cuando cambie la especialidad
+        document.getElementById('especialidad').addEventListener('change', function() {
+            var especialidad = this.value;
+            var medicoSelect = document.getElementById('id_medico');
+            var nombreEspecialista = document.getElementById('nombre_especialista');
+            
+            // Limpiar los campos de médicos y especialista
+            medicoSelect.innerHTML = '<option value="">Seleccione un médico</option>';
+            nombreEspecialista.value = '';
+    
+            if (especialidad != '') {
+                // Realizar la petición AJAX
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', 'get_medicos.php?especialidad=' + especialidad, true);
+                xhr.onload = function() {
+                    if (xhr.status == 200) {
+                        var medicos = JSON.parse(xhr.responseText);
+    
+                        if (medicos.length == 1) {
+                            // Si solo hay un médico, autocompletar el nombre y seleccionar automáticamente
+                            medicoSelect.innerHTML = '<option value="' + medicos[0].id_medico + '">' + medicos[0].nombre_completo + '</option>';
+                            nombreEspecialista.value = medicos[0].nombre_completo;
+                        } else {
+                            // Si hay más de un médico, mostrar todos los médicos
+                            medicos.forEach(function(medico) {
+                                var option = document.createElement('option');
+                                option.value = medico.id_medico;
+                                option.textContent = medico.nombre_completo;
+                                medicoSelect.appendChild(option);
+                            });
+                        }
+                    }
+                };
+                xhr.send();
+            }
+        });
+    </script>
+
+    <!-- Sección Búsqueda -->
+    <div id="searchSection" class="info-container" style="display: none;">
+        <h2>Buscar en el sitio</h2>
+        <input type="text" id="searchInput" placeholder="Buscar...">
+        <button onclick="searchSite()">Buscar</button>
+    </div>
+
+    <!-- Sección Contacto -->
+    <div id="contactSection" class="info-container" style="display: none;">
+        <h2>Contacto</h2>
+        <p>Dirección: Calle Romero Num.54, Santo Domingo, Republica Dominicana</p>
+        <p>Teléfono: +1 (809) 123-4567</p>
+        <h3>Ubicación</h3>
+        <div id="map" style="width: 100%; height: 400px;"></div> <!-- Mapa de Google -->
+</div>
+
+    
+    <main>
+        <h1>Bienvenido al Hospital St. Tomas</h1>
+        <p>Este es un menú de ejemplo que simula la funcionalidad de un Hospital.</p>
+        <p>Explore nuestros servicios de cita, especialistas y más.</p>
+    </main>
+
+    <footer>
+        <p>© 2024 Hospital St Tomas. Todos los derechos reservados.</p>
+    </footer>
+    <script>
+        // Función para manejar la búsqueda
+        function searchSite() {
+            var query = document.getElementById('searchInput').value.trim();
+            var resultsContainer = document.getElementById('searchResults');
+    
+            if (query === '') {
+                resultsContainer.innerHTML = 'Por favor, ingrese un término de búsqueda.';
+            } else {
+                // Aquí podrías hacer la búsqueda real (por ejemplo, en una base de datos o API)
+                resultsContainer.innerHTML = 'Mostrando resultados para: ' + query + '<br><br>' +
+                    '<strong>Consulta General:</strong> Disponibilidad de consultas generales.<br>' +
+                    '<strong>Radiología:</strong> Radiografía, ecografías y más.<br>' +
+                    '<strong>Médico Especialista:</strong> Búsqueda de médicos especialistas en diversas áreas.';
+            }
+        }
+    
+        // Inicializar el mapa de Google
+        function initMap() {
+            var mapOptions = {
+                center: { lat: 18.4741, lng: -69.9351 },  // Coordenadas aproximadas de Santo Domingo
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+    
+            var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    
+            var marker = new google.maps.Marker({
+                position: { lat: 18.4741, lng: -69.9351 },
+                map: map,
+                title: 'Hospital St. Tomas'
+            });
+        }
+    
+        // Función para mostrar la sección de búsqueda
+        function showSearchSection() {
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('contactSection').style.display = 'none';
+        }
+    
+        // Función para mostrar la sección de contacto
+        function showContactSection() {
+            document.getElementById('contactSection').style.display = 'block';
+            document.getElementById('searchSection').style.display = 'none';
+        }
+    
+        // Cargar el script de Google Maps
+        function loadGoogleMapsScript() {
+            var script = document.createElement('script');
+            script.src = 'https://maps.googleapis.com/maps/api/js?key=TU_API_KEY&callback=initMap';
+            script.async = true;
+            script.defer = true;
+            document.head.appendChild(script);
+        }
+    
+        // Llamar a la función para cargar el mapa de Google
+        loadGoogleMapsScript();
+    </script>
+    
+    <script src="scripts.js"></script>
+    </body>
+    </html>
